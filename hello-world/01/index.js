@@ -3,6 +3,10 @@ const db=require('./mongo');
 const app=express();
 const person=require('./models/person');
 const bodyParser=require('body-parser');
+const passport=require('./auth');
+
+
+
 
 //menu item model for the menu list of the hotel 
 const menu=require('./models/menu');
@@ -11,13 +15,24 @@ const menu=require('./models/menu');
 app.use(bodyParser.json()); //stores the data in req.body ,data was sent using  post method 
 
 
+//middleware functions 
+const logRequest=(req,res,next)=>{
+    console.log(`${new Date().toLocaleString} req made to : ${req.originalUrl}`);
+    next();
+};
+//apply it to the all routes present in the appp
+ app.use(logRequest);
+
+//for authentication
+const localAuthMiddleware=passport.authenticate('local',{session:false});
+
 app.get('/',(req,res)=>{
-    res.send("Hotel world");
+    res.send("Welcome To   Hotel world");
 });
 
 //import and use the routes defined for the /person
 const personRoute=require('./routes/personRoutes');
-app.use('/person',personRoute);
+app.use('/person',localAuthMiddleware,personRoute);
 
 
 

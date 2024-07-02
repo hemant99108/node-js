@@ -1,0 +1,17 @@
+REST API-JSON
+
+GET/user-->render HTML DOC using REACT ,other FRAMEWORKapi/
+GET/api/users-->list all the users
+
+
+//dynamic path parameters 
+
+get/api/user:id   ,id is dynamic here 
+GET/api/users/1-->user with id=1(get)
+
+POST/api/users--> Create new user
+
+PATCH/api/users/1-=->update user 1
+
+DELETE/api/users/1=-=->delete user 1
+

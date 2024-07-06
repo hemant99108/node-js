@@ -2,10 +2,10 @@ const express=require('express');
 
 const router=express.Router();
 const person=require('../models/person');
-
+const {jwtAuthMiddleware,generateToken}=require('./../jwt');
 
 //post request to get the data into the database 
-router.post('/',async(req,res)=>{
+router.post('/signup ',async(req,res)=>{
     try {
         const data=req.body;//assuming the req body contains the person data
 
@@ -16,7 +16,17 @@ router.post('/',async(req,res)=>{
     //save the new person to the database 
      const response=await newPerson.save();
      console.log('data saved');
-     res.status(200).json(response);
+
+     const payload={
+        id:response.id,
+        username:respone.username,
+     }
+
+    //we can pass anything unique to generate the token 
+     const token =generateToken(response.username);
+     console.log('token is : ',token);
+
+     res.status(200).json({response:response,token:token});
 
     } catch (err) {
         console.log('error in saving data');
@@ -26,9 +36,39 @@ router.post('/',async(req,res)=>{
 
 });
 
+//login route 
+router.post('/login',async(req,res)=>{
+    try {
+        //extract usename and password from body 
+        const {username,password}=req.body;
+
+        //find in the database 
+        const user=person.findOne({username:username});
+        //if user does not exist or password not match return the error 
+        
+        if(!user || !(await user.comparePassword(password))){
+            return res.status(401).json({error:'Invalid Username Or Password '});
+        }
+
+        //user found --generate token 
+        const payload={
+            id:user.id,
+            username:user.username,
+        }
+
+        const token =generateToken(payload);//return token as response 
+
+        res.json({token});
+
+    } catch (error) {
+        console.log('eerror in generating token ');
+        res.status(501).json({error:'cant generate token'});
+    }
+})
+
 //get method to get the person 
 
-router.get('/',async(req,res)=>{
+router.get('/',jwtAuthMiddleware,async(req,res)=>{
     try {
         const data=await person.find();
         console.log('data found');

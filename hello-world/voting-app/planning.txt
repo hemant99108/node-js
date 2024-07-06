@@ -1,0 +1,63 @@
+voting application
+
+-->a functionality where user can give vote to the given set of candidates 
+
+models?
+routes?
+
+    {
+        "name": "Narendra Modi" ,
+        "party .
+        "age": 71,
+        "votes"  : {
+                {"user . "611f7132Øe8f3eØ01f4e4ef6",
+                    "votedAt                        } ,
+
+                { "user . " 611f7144Øe8f3eØØ1f4e4ef8",
+                    "votedAt :" "2Ø24-Ø2-2ØTØ8: 15: øø.øøøz " },
+
+
+                }
+        ,voteCount:2,
+    }
+
+
+1> user registration signup /signin
+2> candidate list page 
+3>one time vote at once 
+4>route which shows live count of the candidate and also sort them according to thier votes j
+5>user can login with their id and password 
+6>one admin who maintain the candidate names and cant able to vote at all 
+7>user can change their password 
+8>admin cant vote 
+
+
+
+
+Routes
+User Authentication:
+/signup: POST — Create a new user account.
+/ login: POST — Log in to an existing account.
+
+
+Voting:
+/candidates: GET — Get the list of candidates.
+/vote/ : candidateld :
+POST — Vote for a specific candidate.
+
+
+Vote Counts:
+— Get the list of candidates sorted by their vote counts.
+
+
+/vote/counts: GET
+User Profile:
+/profile: GET — Get the user's profile information.
+/profite/password: PUT — Change the user's password.
+
+
+
+Admin Candidate Management:
+/candidates: POST — Create a new candidate.
+/candidates/:candidateld: PUT — Update an existing candidate.
+/candidates/:candidateld: DELETE — Delete a candidate from the list.

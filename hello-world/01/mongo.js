@@ -2,10 +2,7 @@ const mongoose=require('mongoose');
 
 const mongoUrl='mongodb://localhost:27017/hello-world';
 
-mongoose.connect(mongoUrl,{
-    useNewUrlParser:true,
-    useUnifiedTopology:true,
-});
+mongoose.connect(mongoUrl);
 
 
 //get the default connection 

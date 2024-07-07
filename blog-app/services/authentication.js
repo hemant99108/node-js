@@ -2,6 +2,7 @@ const jwt =require('jsonwebtoken');
 
 const secret="hello@world";
 
+//takes in a user object and returns the generated token based on payload and secret given 
 function createTokenForUser(user){
     const payload={
         _id:user._id,
@@ -17,6 +18,7 @@ function createTokenForUser(user){
 }
 
 
+//extract from payload 
 function validateToken(token){
     const payload=jwt.verify(token,secret);
 

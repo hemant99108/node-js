@@ -20,8 +20,11 @@ app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
 app.use(checkForAuthenticationCookie('token'));
 
+
+//to use the local image urls 
+app.use(express.static(path.resolve('./public')));
 app.get('/',async(req,res)=>{
-    const allBlogs=await Blog.find({}).sort('createdAt',-1);
+    const allBlogs=await Blog.find({});
 
     res.render('home',{
         user:req.user,
